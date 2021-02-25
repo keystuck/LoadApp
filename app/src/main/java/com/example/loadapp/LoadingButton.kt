@@ -19,7 +19,7 @@ class LoadingButton @JvmOverloads constructor(
     private var widthSize = 0
     private var heightSize = 0
     private var circleRadius = 0
-    private var rectF = RectF()
+    private lateinit var rectF: RectF
 
     private var fillWidth = 0f
     private var fillAngle = 0f
@@ -50,6 +50,7 @@ class LoadingButton @JvmOverloads constructor(
     init {
         isClickable = true
         buttonState = ButtonState.Completed
+        rectF = RectF()
     }
 
     private fun fillButton(){
@@ -123,10 +124,10 @@ class LoadingButton @JvmOverloads constructor(
         setMeasuredDimension(w, h)
         circleRadius = 30
 
-        rectF = RectF(widthSize.toFloat() - (3*circleRadius),
-                heightSize.toFloat()/2 + circleRadius,
+        rectF.set(widthSize.toFloat() - (3*circleRadius),
+                heightSize.toFloat()/2 - circleRadius,
                 widthSize.toFloat() - circleRadius,
-                heightSize.toFloat()/2 - circleRadius)
+                heightSize.toFloat()/2 + circleRadius)
     }
 
     fun finishDownload(){

@@ -13,6 +13,7 @@ import android.net.UrlQuerySanitizer
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -26,8 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var notificationManager: NotificationManager
 
-    private var selection = "Glide - Image Loading Library by BumpTech"
-    private var URL = "https://github.com/bumptech/glide"
+    private var selection = ""
+    private var URL = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,19 +64,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun download() {
-        val request =
-            DownloadManager.Request(Uri.parse(URL))
-                .setTitle(getString(R.string.app_name))
-                .setDescription(getString(R.string.app_description))
-                .setRequiresCharging(false)
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true)
 
-        val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        downloadID =
-            downloadManager.enqueue(request)// enqueue puts the download request in the queue.
-        custom_button.startDownload()
+
+    private fun download() {
+        if (!selection.isEmpty()) {
+            val request =
+                DownloadManager.Request(Uri.parse(URL))
+                    .setTitle(getString(R.string.app_name))
+                    .setDescription(getString(R.string.app_description))
+                    .setRequiresCharging(false)
+                    .setAllowedOverMetered(true)
+                    .setAllowedOverRoaming(true)
+
+            val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+            downloadID =
+                downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+            custom_button.startDownload()
+        } else {
+            Toast.makeText(applicationContext, getString(R.string.no_selection), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun create_channel(channelId: String, channelName: String){
@@ -102,8 +109,10 @@ class MainActivity : AppCompatActivity() {
                 selection = getString(R.string.udacity_label)}
             R.id.retrofit_radio -> {URL = getString(R.string.retrofit_url)
                 selection = getString(R.string.retrofit_label)}
-            else -> {URL = getString(R.string.glide_url)
-               selection = getString(R.string.glide_label)}
+            R.id.glide_radio -> {URL = getString(R.string.glide_url)
+                selection = getString(R.string.glide_label)}
+            else -> { URL = ""
+                selection = ""}
         }
     }
 

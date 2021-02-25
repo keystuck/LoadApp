@@ -22,7 +22,6 @@
             android:id="@+id/glide_radio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:onClick="selectDownloadSite"
             android:textSize="@dimen/default_text_size"
             android:paddingBottom="@dimen/default_padding"

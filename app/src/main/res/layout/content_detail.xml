@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".DetailActivity"
     android:textSize="@dimen/default_text_size"
-    tools:showIn="@layout/activity_detail">
+    tools:showIn="@layout/activity_detail"
+    app:layoutDescription="@xml/content_detail_scene">
 
     <TextView
         android:id="@+id/file_name_label"
@@ -18,35 +19,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/default_padding" />
+
     <TextView
         android:id="@+id/file_name_display"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="File Name Here"
-        android:layout_marginEnd="@dimen/default_padding"
         android:layout_marginStart="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/default_padding"
         android:textSize="@dimen/default_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/file_name_label"
-        app:layout_constraintTop_toTopOf="@id/file_name_label" />
+        app:layout_constraintTop_toTopOf="@id/file_name_label"
+        tools:text="File Name Here" />
+
     <TextView
         android:id="@+id/download_status_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_padding"
         android:text="@string/download_status_label"
-        app:layout_constraintStart_toStartOf="parent"
         android:textSize="@dimen/default_text_size"
-        app:layout_constraintTop_toBottomOf="@id/file_name_display"
-        android:layout_margin="@dimen/default_padding" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/file_name_display" />
+
     <TextView
         android:id="@+id/download_status_display"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Status Goes Here"
         android:textSize="@dimen/default_text_size"
-        android:layout_marginEnd="@dimen/default_padding"
         app:layout_constraintStart_toStartOf="@id/file_name_display"
-        app:layout_constraintTop_toTopOf="@id/download_status_label" />
+        app:layout_constraintTop_toTopOf="@id/download_status_label"
+        tools:text="Status Goes Here" />
 
     <Button
         android:id="@+id/btn_ok"
@@ -55,8 +60,9 @@
         android:layout_margin="@dimen/default_padding"
         android:text="@string/button_ok"
         android:background="@color/colorAccent"
+        android:onClick="onBackPressed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

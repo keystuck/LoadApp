@@ -10,6 +10,7 @@
 
     <string name="notification_channel_id">NOTI_ID</string>
     <string name="notification_channel_name">NOTIFICATION CHANNEL</string>
+    <string name="download_key">download</string>
 
     <string name="glide_label">Glide - Image Loading Library by BumpTech</string>
     <string name="glide_url">https://github.com/bumptech/glide/archive/master.zip</string>

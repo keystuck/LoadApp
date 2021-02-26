@@ -12,6 +12,7 @@ import android.net.Uri
 import android.net.UrlQuerySanitizer
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     private var selection = ""
     private var URL = ""
 
+    private lateinit var downloadManager: DownloadManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,7 +43,10 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.notification_channel_name)
         )
 
+        downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+
+
 
         custom_button.setOnClickListener {
             download()
@@ -50,16 +56,22 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-
-            if (context != null) {
-                if (notificationManager == null) {
-                    notificationManager = ContextCompat.getSystemService(
-                        context,
-                        NotificationManager::class.java
-                    ) as NotificationManager
+            if (id != null) {
+                val cursor = downloadManager.query(DownloadManager.Query().setFilterById(id))
+                while (cursor.moveToNext()) {
+                    val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                    val success_status = (status == DownloadManager.STATUS_SUCCESSFUL)
+                    if (context != null) {
+                        if (notificationManager == null) {
+                            notificationManager = ContextCompat.getSystemService(
+                                context,
+                                NotificationManager::class.java
+                            ) as NotificationManager
+                        }
+                        custom_button.finishDownload()
+                            notificationManager.sendNotification(selection, context, success_status)
+                    }
                 }
-                custom_button.finishDownload()
-                notificationManager.sendNotification(selection, context)
             }
         }
     }
@@ -76,7 +88,6 @@ class MainActivity : AppCompatActivity() {
                     .setAllowedOverMetered(true)
                     .setAllowedOverRoaming(true)
 
-            val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
             downloadID =
                 downloadManager.enqueue(request)// enqueue puts the download request in the queue.
             custom_button.startDownload()

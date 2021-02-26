@@ -10,9 +10,10 @@ import java.security.AccessControlContext
 
 private val NOTIFICATION_ID = 1212
 
-fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context){
+fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context, success: Boolean){
     val resultIntent = Intent(applicationContext, DetailActivity::class.java)
-    resultIntent.putExtra("download", messageBody)
+    resultIntent.putExtra(applicationContext.getString(R.string.download_key), messageBody)
+    resultIntent.putExtra(applicationContext.getString(R.string.success), success)
 
     val resultPendingIntent = TaskStackBuilder.create(applicationContext).run {
         addNextIntentWithParentStack(resultIntent)

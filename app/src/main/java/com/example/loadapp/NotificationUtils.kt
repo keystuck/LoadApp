@@ -22,7 +22,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 
     val builder = NotificationCompat.Builder(applicationContext, applicationContext.getString(R.string.notification_channel_id))
         .setSmallIcon(R.drawable.ic_assistant_black_24dp)
-        .setContentTitle(applicationContext.getString(R.string.notification_title))
+        .setContentTitle(applicationContext.getString(R.string.notification_description))
         .setContentIntent(resultPendingIntent)
         .setAutoCancel(true)
 

@@ -7,21 +7,24 @@
             app:layout_constraintStart_toEndOf="@id/file_name_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/file_name_label"
+            android:textSize="0dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Constraint android:id="@+id/download_status_display"
-
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:textSize="0dp"
             app:layout_constraintStart_toEndOf="@id/download_status_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/download_status_label" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@id/file_name_display" />
+        <Constraint android:id="@id/file_name_display"
+            android:textSize="@dimen/default_text_size"/>
         <Constraint
-            android:id="@id/download_status_display" />
+            android:id="@id/download_status_display"
+            android:textSize="@dimen/default_text_size"/>
     </ConstraintSet>
 
     <Transition

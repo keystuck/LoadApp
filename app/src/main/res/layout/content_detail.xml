@@ -58,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_padding"
+        android:textSize="@dimen/default_text_size"
         android:text="@string/button_ok"
         android:background="@color/colorAccent"
         android:onClick="onBackPressed"

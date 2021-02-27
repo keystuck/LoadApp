@@ -61,7 +61,7 @@ class LoadingButton @JvmOverloads constructor(
             animator.repeatCount = ValueAnimator.INFINITE
             animator.repeatMode = ValueAnimator.RESTART
                     fillWidth = animator.animatedValue as Float
-                    fillAngle = fillWidth/widthSize * 360
+                    fillAngle = -1*fillWidth/widthSize * 360
                     invalidate()
             }
             disableViewDuringAnimation(this@LoadingButton, loadingAnimator)
